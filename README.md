@@ -1,2 +1,2 @@
 # DDPFFAdoptation
-Attempt to adopt orifinal DDPFF algo
+Attempt to adopt original DDPFF algo - https://github.com/arindamrc/DDPFF
