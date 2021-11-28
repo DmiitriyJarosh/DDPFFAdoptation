@@ -5,7 +5,7 @@
 #include <rep/DDPFF.h>
 
 void read_pcd(pointBuffer_t & points_ptr) {
-    std::ifstream infile("C:\\Users\\dimaj\\CLionProjects\\DDPFFAdoptation\\res.ply");
+    std::ifstream infile("C:\\Users\\dimaj\\Documents\\Github\\DDPFFAdoptation\\result.ply");
 
     if (!infile.is_open()) {
         throw std::runtime_error("Input file not found!");
@@ -36,6 +36,16 @@ void read_pcd(pointBuffer_t & points_ptr) {
     }
 }
 
+void save_planes(const std::vector<PlanePointNormal> & planes) {
+    std::ofstream output("planes.txt");
+
+    for (const auto & plane : planes) {
+        for (auto inlier : plane.inliers) {
+            output << inlier << " ";
+        }
+        output << std::endl;
+    }
+}
 
 int main() {
     std::cout << "HI" << std::endl;
@@ -51,7 +61,10 @@ int main() {
 
     ddpff->compute();
     const std::vector<PlanePointNormal> & result = ddpff->getPlanes();
-    std::cout << result[0].count << std::endl;
+    for (const auto& plane : result) {
+        std::cout << plane.count << std::endl;
+    }
     std::cout << result.size() << std::endl;
+    save_planes(result);
     return 0;
 }
